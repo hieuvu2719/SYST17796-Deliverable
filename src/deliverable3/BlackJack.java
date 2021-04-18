@@ -21,7 +21,7 @@ public class BlackJack {
         System.out.println("If you are busted, your hand is not automatically shown!!!");
         System.out.println("You might want to read the rule first as this is different from normal BlackJack!\n");
         System.out.println("Please select 1 or 2:");
-        
+
         //creating scanner for user input
         Scanner sc;
         Scanner sc2;
@@ -30,9 +30,10 @@ public class BlackJack {
 
         System.out.println("1. Read the rules");
         System.out.println("2. Start the game");
-        
+        boolean confirm = false;
+
         //prompt user for input to read rules or start game
-        while (true) {
+        while (!confirm) {
             sc = new Scanner(System.in);
             sc2 = new Scanner(System.in);
             if (sc.nextInt() == 1) {
@@ -45,18 +46,24 @@ public class BlackJack {
                 System.out.println("6. If you are busted, your hand is not automatically shown. You have to wait after dealer finish their turn.");
                 System.out.println("7. After dealer finish their turn, all hands will be shown. Winner takes bet money. Loser loses bet money.");
                 System.out.println("------------------------------------------------------------------------------------------");
-                System.out.println("Press s to start the game");
-                if (sc2.nextLine().equalsIgnoreCase("s")) {
-                    break;
+
+                while (true) {
+                    System.out.println("Press s to start the game");
+                    if (sc2.nextLine().equalsIgnoreCase("s")) {
+                        confirm = true;
+                        break;
+                    } else {
+                        System.out.println("Invalid input!!!");
+                    }
                 }
             } else {
                 break;
             }
         }
-        
+
         //create new player
         Player player = new Player();
-        
+
         //create new dealer
         Dealer dealer = new Dealer();
 
@@ -72,10 +79,10 @@ public class BlackJack {
                 System.out.println("You have no money!!! Try again!!!");
             }
         }
-        
+
         //set dealer's money amount
         dealer.setAmount(player.getAmount() * 10);
-        
+
         //keep playing the game until user end the game or user's money amount equals 0
         while (player.getAmount() > 0) {
             double bet = 0;
@@ -93,43 +100,43 @@ public class BlackJack {
             }
             System.out.println("\nShuffling the deck!");
             System.out.println("");
-            
+
             //create new deck
             Deck deck = new Deck();
             deck.createDeck();
-            
+
             //shuffle deck
             deck.shuffle();
-            
+
             //create new hands
             Hand playerHand = new Hand();
             Hand dealerHand = new Hand();
-            
+
             //assign hand to user
             player.setHand(playerHand);
-            
+
             //assign hand to dealer
             dealer.setHand(dealerHand);
-            
+
             //player and dealer draw card
             player.hit(deck);
             dealer.hit(deck);
             player.hit(deck);
             dealer.hit(deck);
-            
+
             //print dealer's one card on hand
             System.out.println("\n----------------------");
             System.out.println("Dealer hand:");
             System.out.println(dealer.getHand().getCard(0).toString());
             System.out.println("Hidden");
             System.out.println("----------------------");
-            
+
             //print user's hand
             System.out.println("\n----------------------");
             System.out.println("Your hand:");
             System.out.println(player.toString());
             System.out.println("----------------------");
-            
+
             //keep prompting user to hit or stay
             while (true) {
                 sc3 = new Scanner(System.in);
@@ -140,31 +147,34 @@ public class BlackJack {
                     System.out.println("You draw a : " + player.getHand().getNewDrawnCard().toString());
                     System.out.println("Total Value: " + player.calculate());
                     System.out.println("----------------------");
+                    if(player.getHand().size()==5){
+                        break;
+                    }
                 } else {
                     break;
                 }
             }
-            
+
             //user draw cards based on user hand
             if (player.getHand().size() == 2) {
-                if (dealer.calculate() <= 17) {
-                    dealer.hit(deck);
-                }
-            } else {
-                if (dealer.calculate() <= 15) {
+                while (dealer.calculate() <= 17) {
                     dealer.hit(deck);
                 }
             }
-            
+            if (player.getHand().size() >= 3) {
+                while (dealer.calculate() <= 15) {
+                    dealer.hit(deck);
+                }
+            }
+
             //print dealer's hand
             System.out.println("\n----------------------");
             System.out.println("\nDealer's hand:");
             System.out.println(dealer.toString());
             System.out.println("----------------------");
-            
-            
+
             //decide who wins
-            if (dealer.calculate() == player.calculate() || (dealer.calculate() > 21 && player.calculate() > 21)) {
+            if (dealer.calculate() == player.calculate() || (dealer.calculate() > 21 && player.calculate() > 21) || (dealer.calculate() >21 && player.calculate() < 15)) {
                 System.out.println("It's a draw!!!");
                 System.out.println("Current money amount: " + player.getAmount() + "\n");
             }
@@ -183,7 +193,7 @@ public class BlackJack {
                 player.addAmount(bet);
                 System.out.println("Current money amount: " + player.getAmount() + "\n");
             }
-            if (player.calculate() > 21 && (dealer.calculate() <= 21 && dealer.calculate() > 15)) {
+            if (dealer.calculate() <= 21 && (player.calculate() > 21 || player.calculate() <15)) {
                 System.out.println("You lost!!!");
                 player.removeAmount(bet);
                 System.out.println("Current money amount: " + player.getAmount() + "\n");
@@ -191,8 +201,7 @@ public class BlackJack {
             if (player.getAmount() == 0) {
                 System.out.println("You have no money!!! Goodbye!!!");
             }
-            
-            
+
             //promp if user wants to play again
             sc4 = new Scanner(System.in);
             System.out.println("Would you like to play again? Yes (y) or No (n)");
