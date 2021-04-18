@@ -17,9 +17,9 @@ public class BlackJack {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Welcome to Asian BlackJack!!!");
+        System.out.println("Welcome to Asian BlackJack!!!\n");
         System.out.println("If you are busted, your hand is not automatically shown!!!");
-        System.out.println("You might want to read the rule first as this is different from normal BlackJack!");
+        System.out.println("You might want to read the rule first as this is different from normal BlackJack!\n");
         System.out.println("Please select 1 or 2:");
         
         //creating scanner for user input
