@@ -16,31 +16,37 @@ public class AsianBlackJackTest {
     
     public AsianBlackJackTest() {
     }
-
+    
+    //test method blackJack()
     @Test
-    public void testDeal() {
-    }
-
-    @Test
-    public void testDeclareWinner() {
+    public void testBlackJack(){
         Player player = new Player();
         Dealer dealer = new Dealer();
-        Card card1 = new Card(Value.SEVEN, Suit.HEARTS);
-        Card card2 = new Card(Value.TEN, Suit.SPADES);
-        Card card3 = new Card(Value.KING, Suit.HEARTS);
-        Card card4 = new Card(Value.QUEEN, Suit.DIAMONDS);
-        player.setHand(new Hand());
-        player.getHand().getHand().add(card1);
-        player.getHand().getHand().add(card2);
-        dealer.getHand().getHand().add(card3);
-        dealer.getHand().getHand().add(card4);
-        player.setAmount(1000);
-        double bet = 100;
-        double expResult = 900;
-        AsianBlackJack game = new AsianBlackJack(player, dealer); 
-        game.declareWinner(100);
-        assertEquals(expResult,player.getAmount());
-        
+        AsianBlackJack game = new AsianBlackJack(player, dealer);
+        Hand hand = new Hand();
+        player.setHand(hand);
+        player.getHand().getHand().add(new Card(Value.ACE,Suit.HEARTS));
+        player.getHand().getHand().add(new Card(Value.ACE,Suit.CLUBS));
+        boolean expResult = true;
+        boolean result = game.blackJack(player);
+        assertEquals(expResult, result);
     }
     
+    //test method luckyFive()
+        @Test
+        public void testLuckyFive(){
+        Player player = new Player();
+        Dealer dealer = new Dealer();
+        AsianBlackJack game = new AsianBlackJack(player, dealer);
+        Hand hand = new Hand();
+        player.setHand(hand);
+        player.getHand().getHand().add(new Card(Value.TWO,Suit.HEARTS));
+        player.getHand().getHand().add(new Card(Value.THREE,Suit.CLUBS));
+        player.getHand().getHand().add(new Card(Value.FOUR,Suit.HEARTS));
+        player.getHand().getHand().add(new Card(Value.TWO,Suit.CLUBS));
+        player.getHand().getHand().add(new Card(Value.TWO,Suit.SPADES));
+        boolean expResult = true;
+        boolean result = game.luckyFive(player);
+        assertEquals(expResult, result);
+    }
 }
