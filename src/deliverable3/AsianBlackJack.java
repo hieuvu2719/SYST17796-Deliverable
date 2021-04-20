@@ -187,7 +187,7 @@ public class AsianBlackJack {
                 }
             }
             if (player.getHand().size() >= 3) {
-                while (dealer.calculate() <= 16) {
+                while (dealer.calculate() <= 15) {
                     dealer.hit(dealer.getDeck());
                 }
             }
