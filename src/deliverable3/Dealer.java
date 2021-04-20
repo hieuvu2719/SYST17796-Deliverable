@@ -10,36 +10,37 @@ package deliverable3;
  * @author hieud
  */
 public class Dealer extends Player {
+
     private Deck deck;
+
     public Dealer() {
     }
-    
+
     /**
      *
      * @param deck the deck to set
      */
-    public void setDeck(Deck deck){
-        this.deck=deck;
+    public void setDeck(Deck deck) {
+        this.deck = deck;
     }
-    
+
     /**
      *
      * @return the deck
      */
-    public Deck getDeck(){
+    public Deck getDeck() {
         return deck;
     }
-    
+
     /**
      * shuffle deck
      */
-    public void shuffle(){
+    public void shuffle() {
         deck.shuffle();
     }
-    
-    
+
     //deal cards
-    public void deal(Player player, Deck deck){
+    public void deal(Player player, Deck deck) {
         player.hit(deck);
         this.hit(deck);
         player.hit(deck);

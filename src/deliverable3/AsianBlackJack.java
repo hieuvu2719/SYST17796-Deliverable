@@ -16,11 +16,19 @@ public class AsianBlackJack {
     private Player player;
     private Dealer dealer;
 
-    public AsianBlackJack(Player player,Dealer dealer) {
+    public AsianBlackJack(Player player, Dealer dealer) {
         this.player = player;
         this.dealer = dealer;
     }
-    
+
+    /**
+     *
+     * @return the player
+     */
+    public Player getPlayer() {
+        return player;
+    }
+
     //show introduction to the game
     public void intro() {
         System.out.println("Welcome to Asian BlackJack!!!\n");
@@ -35,7 +43,7 @@ public class AsianBlackJack {
             System.out.println("Please select 1 or 2:");
             System.out.println("1. Read the rules");
             System.out.println("2. Start the game");
-            sc=new Scanner(System.in);
+            sc = new Scanner(System.in);
             if (sc.hasNextInt()) {
                 select = sc.nextInt();
                 if (select == 1) {
@@ -47,7 +55,10 @@ public class AsianBlackJack {
                     System.out.println("5. If one's hand is less than 16 or higher than 21(busted), that hand lose.");
                     System.out.println("6. In order to win, one's hand total value must be higher than other's and still satisfy the above condition.");
                     System.out.println("7. If you are busted, your hand is not automatically shown. You have to wait after dealer finish their turn.");
-                    System.out.println("8. After dealer finish their turn, all hands will be shown. Winner takes bet money. Loser loses bet money.");
+                    System.out.println("8. BlackJack (Double Ace) beats everything else and bet amount is doubled!!!");
+                    System.out.println("9. Lucky Five (a hand of 5 cards with total value <= 21, can be smaller than 16) only loses to BlackJack."
+                            + " Beside BlackJack it beats everything else and bet amount is doubled!!!");
+                    System.out.println("10. After dealer finish their turn, all hands will be shown. Winner takes bet money. Loser loses bet money.");
                     System.out.println("------------------------------------------------------------------------------------------");
                     while (!confirm) {
                         sc = new Scanner(System.in);
@@ -70,7 +81,6 @@ public class AsianBlackJack {
             }
         }
 
-
     }
 
     //set player money amount
@@ -78,7 +88,7 @@ public class AsianBlackJack {
         Scanner sc;
         while (true) {
             sc = new Scanner(System.in);
-            System.out.print("Enter player's money amount: ");
+            System.out.print("Enter player's money amount (Make sure you enter a lot or else you will lose all your money fast ;-) ): ");
             if (sc.hasNextDouble()) {
                 double amount = sc.nextDouble();
                 if (amount > 0) {
@@ -92,118 +102,115 @@ public class AsianBlackJack {
             }
         }
     }
-    
-    
+
     //set bet money
-    public void bet(){
+    public void bet() {
         Scanner sc;
         double bet = 0;
-            //keep prompting to get proper user's bet amount
-            while (true) {
-                sc = new Scanner(System.in);
-                System.out.println("\n" + "Current money amount: " + player.getAmount());
-                System.out.print("Enter bet amount: ");
-                if (sc.hasNextDouble()) {
-                    bet = sc.nextDouble();
-                    if (bet <= player.getAmount()) {
-                        break;
-                    } else {
-                        System.out.println("Insufficient fund!!! Try again!!!");
-                    }
+        //keep prompting to get proper user's bet amount
+        while (true) {
+            sc = new Scanner(System.in);
+            System.out.println("\n" + "Current money amount: " + player.getAmount());
+            System.out.print("Enter bet amount: ");
+            if (sc.hasNextDouble()) {
+                bet = sc.nextDouble();
+                if (bet <= player.getAmount()) {
+                    break;
                 } else {
-                    System.out.println("Invalid input!!! Try again!!!");
+                    System.out.println("Insufficient fund!!! Try again!!!");
                 }
+            } else {
+                System.out.println("Invalid input!!! Try again!!!");
             }
+        }
         player.setBet(bet);
-            
+
     }
-    
+
     //dealer deal cards
-    public void deal(){
+    public void deal() {
         dealer.setAmount(player.getAmount() * 10);
-        
+
         //keep playing the game until user end the game or user's money amount equals 0            
-            System.out.println("\nDealer is getting a new deck and shuffling it!");
-            System.out.println("");
+        System.out.println("\nDealer is getting a new deck and shuffling it!");
+        System.out.println("");
 
-            //dealer get new deck and shuffle the deck    
-            Deck deck = new Deck();
-            deck.create();
-            dealer.setDeck(deck);
-            dealer.shuffle();
+        //dealer get new deck and shuffle the deck    
+        Deck deck = new Deck();
+        deck.create();
+        dealer.setDeck(deck);
+        dealer.shuffle();
 
-            Hand playerHand = new Hand();
-            Hand dealerHand = new Hand();
-            player.setHand(playerHand);
-            dealer.setHand(dealerHand);
+        Hand playerHand = new Hand();
+        Hand dealerHand = new Hand();
+        player.setHand(playerHand);
+        dealer.setHand(dealerHand);
 
-            dealer.deal(player, deck);
+        dealer.deal(player, deck);
 
-            //print dealer's one card on hand
-            System.out.println("\n----------------------");
-            System.out.println("Dealer hand:");
-            System.out.println(dealer.getHand().getCard(0).toString());
-            System.out.println("Hidden");
-            System.out.println("----------------------");
+        //print dealer's one card on hand
+        System.out.println("\n----------------------");
+        System.out.println("Dealer hand:");
+        System.out.println(dealer.getHand().getCard(0).toString());
+        System.out.println("Hidden");
+        System.out.println("----------------------");
 
-            //print user's hand
-            System.out.println("\n----------------------");
-            System.out.println("Your hand:");
-            System.out.println(player.toString());
-            System.out.println("----------------------");
+        //print user's hand
+        System.out.println("\n----------------------");
+        System.out.println("Your hand:");
+        System.out.println(player.toString());
+        System.out.println("----------------------");
     }
-    
+
     //hit or stay
     public void hit() {
-            Scanner sc;
-            int select = 0;
-            //keep prompting user to hit or stay
-            while (true) {
-                System.out.println("Would you like to hit (1) or stay (2): ");
-                sc = new Scanner(System.in);
-                if (sc.hasNextInt()) {
-                    select = sc.nextInt();
-                    if (select == 1) {
-                        player.hit(dealer.getDeck());
-                        System.out.println("\n----------------------");
-                        System.out.println("You draw a : " + player.getHand().getNewDrawnCard().toString());
-                        System.out.println("Total Value: " + player.calculate());
-                        System.out.println("----------------------");
-                        if (player.getHand().size() == 5) {
-                            break;
-                        }
-                    } else {
+        Scanner sc;
+        int select = 0;
+        //keep prompting user to hit or stay
+        while (true) {
+            System.out.println("Would you like to hit (1) or stay (2): ");
+            sc = new Scanner(System.in);
+            if (sc.hasNextInt()) {
+                select = sc.nextInt();
+                if (select == 1) {
+                    player.hit(dealer.getDeck());
+                    System.out.println("\n----------------------");
+                    System.out.println("You draw a : " + player.getHand().getNewDrawnCard().toString());
+                    System.out.println("Total Value: " + player.calculate());
+                    System.out.println("----------------------");
+                    if (player.getHand().size() == 5) {
                         break;
                     }
                 } else {
-                    System.out.println("Invalid input!!! Try again!!!");
+                    break;
                 }
+            } else {
+                System.out.println("Invalid input!!! Try again!!!");
             }
+        }
 
-            //dealer draw cards based on user hand
-            if (player.getHand().size() == 2) {
-                while (dealer.calculate() <= 17) {
-                    dealer.hit(dealer.getDeck());
-                }
+        //dealer draw cards based on user hand
+        if (player.getHand().size() == 2) {
+            while (dealer.calculate() <= 17) {
+                dealer.hit(dealer.getDeck());
             }
-            if (player.getHand().size() >= 3) {
-                while (dealer.calculate() <= 15) {
-                    dealer.hit(dealer.getDeck());
-                }
+        }
+        if (player.getHand().size() >= 3) {
+            while (dealer.calculate() <= 15) {
+                dealer.hit(dealer.getDeck());
             }
+        }
 
-    
-
-            //print dealer's hand
-            System.out.println("\n----------------------");
-            System.out.println("Dealer hand:");
-            System.out.println(dealer.toString());
-            System.out.println("----------------------");
+        //print dealer's hand
+        System.out.println("\n----------------------");
+        System.out.println("Dealer hand:");
+        System.out.println(dealer.toString());
+        System.out.println("----------------------");
     }
-            
+
     //reset game
-    public void reset(){
-            if(player.getAmount()>0){
+    public void reset() {
+        if (player.getAmount() > 0) {
             Scanner sc;
             System.out.println("Would you like to play again? Yes (y) or No (n)");
             sc = new Scanner(System.in);
@@ -213,88 +220,89 @@ public class AsianBlackJack {
             } else {
                 System.out.println("\nNew round!!!");
             }
+        } else {
+            System.out.println("You have no money!!! Goodbye!");
+
         }
-            else{
-                System.out.println("You have no money!!! Goodbye!");
-                
-            }
     }
-    
+
     //validate black jack
-    public boolean blackJack(Player player){
+    public boolean blackJack(Player player) {
         boolean blackJack = false;
-        if(player.getHand().size()==2 && player.getHand().getCard(0).getValue().name().equalsIgnoreCase("ace") 
-           && player.getHand().getCard(1).getValue().name().equalsIgnoreCase("ace")){
-           blackJack = true; 
+        if (player.getHand().size() == 2 && player.getHand().getCard(0).getValue().name().equalsIgnoreCase("ace")
+                && player.getHand().getCard(1).getValue().name().equalsIgnoreCase("ace")) {
+            blackJack = true;
         }
         return blackJack;
     }
-    
+
     //validate lucky 5
     public boolean luckyFive(Player player) {
         boolean luckyFive = false;
-        if (player.getHand().size() == 5 && player.calculate()<=21) {
+        if (player.getHand().size() == 5 && player.calculate() <= 21) {
             luckyFive = true;
         }
         return luckyFive;
-    }    
-    
+    }
+
     //declare winners
     public void declareWinner(double bet) {
         //decide who wins
-        if(blackJack(player)==true && blackJack(dealer)==true){
+        if (blackJack(player) == true && blackJack(dealer) == true) {
             System.out.println("It's a draw!!!");
             System.out.println("Current money amount: " + player.getAmount() + "\n");
         }
-        if(blackJack(player)==true && blackJack(dealer)==false){
+        if (blackJack(player) == true && blackJack(dealer) == false) {
             System.out.println("You won double!!! Black Jack double the bet!!!");
-            player.addAmount(bet*2);
+            player.addAmount(bet * 2);
             System.out.println("Current money amount: " + player.getAmount() + "\n");
         }
-        if(blackJack(player)==false && blackJack(dealer)==true){
+        if (blackJack(player) == false && blackJack(dealer) == true) {
             System.out.println("You Lost double!!! Black Jack double the bet!!!");
-            player.removeAmount(bet*2);
+            player.removeAmount(bet * 2);
             System.out.println("Current money amount: " + player.getAmount() + "\n");
         }
-            else{
-                if(luckyFive(player)==true && luckyFive(dealer)==true){
+        if (blackJack(player) == false && blackJack(dealer) == false) {
+            if (luckyFive(player) == true && luckyFive(dealer) == true) {
+                System.out.println("It's a draw!!!");
+                System.out.println("Current money amount: " + player.getAmount() + "\n");
+            }
+            if (luckyFive(player) == true && luckyFive(dealer) == false) {
+                System.out.println("You won double!!! Lucky Five double the bet!!!");
+                player.addAmount(bet * 2);
+                System.out.println("Current money amount: " + player.getAmount() + "\n");
+            }
+            if (luckyFive(player) == false && luckyFive(dealer) == true) {
+                System.out.println("You lost double!!! Lucky Five double the bet!!!");
+                player.removeAmount(bet * 2);
+                System.out.println("Current money amount: " + player.getAmount() + "\n");
+            }
+            if (luckyFive(player) == false && luckyFive(dealer) == false) {
+                if (dealer.calculate() == player.calculate() || (dealer.calculate() > 21 && player.calculate() > 21) || (dealer.calculate() > 21 && player.calculate() < 15)) {
                     System.out.println("It's a draw!!!");
-                    System.out.println("Current money amount: " + player.getAmount() + "\n");             
-                }
-                if(luckyFive(player)==true && luckyFive(dealer)==false){
-                    System.out.println("You won double!!! Lucky Five double the bet!!!");
-                    player.addAmount(bet * 2);
                     System.out.println("Current money amount: " + player.getAmount() + "\n");
                 }
-                if(luckyFive(player)==false && luckyFive(dealer)==true){
-                    System.out.println("You lost double!!! Lucky Five double the bet!!!");
-                    player.removeAmount(bet * 2);
+                if (player.calculate() <= 21 && player.calculate() > dealer.calculate()) {
+                    System.out.println("You won!!!");
+                    player.addAmount(bet);
                     System.out.println("Current money amount: " + player.getAmount() + "\n");
                 }
-                    if (dealer.calculate() == player.calculate() || (dealer.calculate() > 21 && player.calculate() > 21) || (dealer.calculate() > 21 && player.calculate() < 15)) {
-                        System.out.println("It's a draw!!!");
-                        System.out.println("Current money amount: " + player.getAmount() + "\n");
-                    }
-                    if (player.calculate() <= 21 && player.calculate() > dealer.calculate()) {
-                        System.out.println("You won!!!");
-                        player.addAmount(bet);
-                        System.out.println("Current money amount: " + player.getAmount() + "\n");
-                    }
-                    if (dealer.calculate() <= 21 && dealer.calculate() > player.calculate()) {
-                        System.out.println("You lost!!!");
-                        player.removeAmount(bet);
-                        System.out.println("Current money amount: " + player.getAmount() + "\n");
-                    }
-                    if ((player.calculate() <= 21 && player.calculate() > 15) && dealer.calculate() > 21) {
-                        System.out.println("You won!!!");
-                        player.addAmount(bet);
-                        System.out.println("Current money amount: " + player.getAmount() + "\n");
-                    }
-                    if (dealer.calculate() <= 21 && (player.calculate() > 21 || player.calculate() < 15)) {
-                        System.out.println("You lost!!!");
-                        player.removeAmount(bet);
-                        System.out.println("Current money amount: " + player.getAmount() + "\n");
-                    }
+                if (dealer.calculate() <= 21 && dealer.calculate() > player.calculate()) {
+                    System.out.println("You lost!!!");
+                    player.removeAmount(bet);
+                    System.out.println("Current money amount: " + player.getAmount() + "\n");
+                }
+                if ((player.calculate() <= 21 && player.calculate() > 15) && dealer.calculate() > 21) {
+                    System.out.println("You won!!!");
+                    player.addAmount(bet);
+                    System.out.println("Current money amount: " + player.getAmount() + "\n");
+                }
+                if (dealer.calculate() <= 21 && (player.calculate() > 21 || player.calculate() < 15)) {
+                    System.out.println("You lost!!!");
+                    player.removeAmount(bet);
+                    System.out.println("Current money amount: " + player.getAmount() + "\n");
+                }
+            }
         }
     }
 }

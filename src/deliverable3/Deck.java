@@ -15,9 +15,9 @@ public class Deck {
 
     private ArrayList<Card> deck = new ArrayList<>();
 
-    public Deck() {}
+    public Deck() {
+    }
 
-    
     //create a deck of 52 cards
     public void create() {
         for (Suit cardSuit : Suit.values()) {
@@ -26,7 +26,7 @@ public class Deck {
             }
         }
     }
-    
+
     //shuffle the deck
     public void shuffle() {
         ArrayList<Card> shuffledDeck = new ArrayList<>();
@@ -44,12 +44,11 @@ public class Deck {
     public void remove(int i) {
         deck.remove(i);
     }
-    
+
     //get card from deck
     public Card get(int i) {
         return deck.get(i);
     }
-    
 
     @Override
     public String toString() {

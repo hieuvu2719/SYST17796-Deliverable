@@ -14,16 +14,16 @@ import java.util.ArrayList;
 public class Hand {
 
     private ArrayList<Card> hand = new ArrayList<>();
-    public Hand(){}
-    
+
+    public Hand() {
+    }
 
     //add card from the deck to hand
     public void addCard(Deck deck) {
         hand.add(deck.get(0));
         deck.remove(0);
     }
-    
-    
+
     /**
      *
      * @param i
@@ -32,20 +32,20 @@ public class Hand {
     public Card getCard(int i) {
         return hand.get(i);
     }
-    
+
     /**
      *
      * @return the hand
      */
-    public ArrayList<Card> getHand(){
+    public ArrayList<Card> getHand() {
         return hand;
     }
-    
+
     //return just drawn card from hand
     public Card getNewDrawnCard() {
         return hand.get(hand.size() - 1);
     }
-    
+
     //return number of cards on hand
     public int size() {
         return hand.size();
