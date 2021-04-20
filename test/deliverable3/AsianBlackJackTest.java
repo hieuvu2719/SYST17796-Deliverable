@@ -17,53 +17,30 @@ public class AsianBlackJackTest {
     public AsianBlackJackTest() {
     }
 
-    /**
-     * Test of intro method, of class AsianBlackJack.
-     */
-    @Test
-    public void testIntro() {
-    }
-
-    /**
-     * Test of setMoneyAmount method, of class AsianBlackJack.
-     */
-    @Test
-    public void testSetMoneyAmount() {
-    }
-
-    /**
-     * Test of bet method, of class AsianBlackJack.
-     */
-    @Test
-    public void testBet() {
-    }
-
-    /**
-     * Test of deal method, of class AsianBlackJack.
-     */
     @Test
     public void testDeal() {
     }
 
-    /**
-     * Test of hit method, of class AsianBlackJack.
-     */
-    @Test
-    public void testHit() {
-    }
-
-    /**
-     * Test of reset method, of class AsianBlackJack.
-     */
-    @Test
-    public void testReset() {
-    }
-
-    /**
-     * Test of declareWinner method, of class AsianBlackJack.
-     */
     @Test
     public void testDeclareWinner() {
+        Player player = new Player();
+        Dealer dealer = new Dealer();
+        Card card1 = new Card(Value.SEVEN, Suit.HEARTS);
+        Card card2 = new Card(Value.TEN, Suit.SPADES);
+        Card card3 = new Card(Value.KING, Suit.HEARTS);
+        Card card4 = new Card(Value.QUEEN, Suit.DIAMONDS);
+        player.setHand(new Hand());
+        player.getHand().getHand().add(card1);
+        player.getHand().getHand().add(card2);
+        dealer.getHand().getHand().add(card3);
+        dealer.getHand().getHand().add(card4);
+        player.setAmount(1000);
+        double bet = 100;
+        double expResult = 900;
+        AsianBlackJack game = new AsianBlackJack(player, dealer); 
+        game.declareWinner(100);
+        assertEquals(expResult,player.getAmount());
+        
     }
     
 }

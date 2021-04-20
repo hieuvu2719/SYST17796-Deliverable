@@ -32,6 +32,14 @@ public class Hand {
         return hand.get(i);
     }
     
+    /**
+     *
+     * @return the hand
+     */
+    public ArrayList<Card> getHand(){
+        return hand;
+    }
+    
     //return just drawn card from hand
     public Card getNewDrawnCard() {
         return hand.get(hand.size() - 1);
