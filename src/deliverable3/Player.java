@@ -13,15 +13,33 @@ public class Player {
 
     private Hand hand;
     private double moneyAmount;
-
+    private double bet;
+    
     public Player() {
     }
 
-    public Player(Hand hand, double moneyAmount) {
+    public Player(Hand hand, double moneyAmount, double bet) {
+        this.bet=bet;
         this.hand = hand;
         this.moneyAmount = moneyAmount;
     }
-
+    
+    /**
+     *
+     * @return the bet
+     */
+    public double getBet(){
+        return bet;
+    }
+    
+    /**
+     *
+     * @param bet the bet to set
+     */
+    public void setBet(double bet){
+        this.bet=bet;
+    }
+    
     /**
      *
      * @return the hand

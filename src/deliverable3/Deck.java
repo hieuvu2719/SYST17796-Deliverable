@@ -13,15 +13,13 @@ import java.util.ArrayList;
  */
 public class Deck {
 
-    private ArrayList<Card> deck;
+    private ArrayList<Card> deck = new ArrayList<>();
 
-    public Deck() {
-        this.deck = new ArrayList<>();
-    }
+    public Deck() {}
 
     
     //create a deck of 52 cards
-    public void createDeck() {
+    public void create() {
         for (Suit cardSuit : Suit.values()) {
             for (Value cardValue : Value.values()) {
                 deck.add(new Card(cardValue, cardSuit));
@@ -51,6 +49,7 @@ public class Deck {
     public Card get(int i) {
         return deck.get(i);
     }
+    
 
     @Override
     public String toString() {

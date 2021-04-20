@@ -14,11 +14,8 @@ import java.util.ArrayList;
 public class Hand {
 
     private ArrayList<Card> hand = new ArrayList<>();
-//    
-//    public Hand(){
-//    this.hand= new ArrayList<>();
-//    }
-//    
+    public Hand(){}
+    
 
     //add card from the deck to hand
     public void addCard(Deck deck) {
