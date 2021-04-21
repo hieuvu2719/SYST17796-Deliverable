@@ -23,6 +23,7 @@ public class AsianBlackJackTest {
     //test method blackJack() good
     @Test
     public void testBlackJackGood() {
+        System.out.println("BlackJackGood");
         Player player = new Player();
         Dealer dealer = new Dealer();
         AsianBlackJack game = new AsianBlackJack(player, dealer);
@@ -38,6 +39,7 @@ public class AsianBlackJackTest {
     //test method blackJack() bad
     @Test
     public void testBlackJackBad() {
+        System.out.println("BlackJackBad");
         Player player = new Player();
         Dealer dealer = new Dealer();
         AsianBlackJack game = new AsianBlackJack(player, dealer);
@@ -53,6 +55,7 @@ public class AsianBlackJackTest {
     //test method blackJack() boundary
     @Test
     public void testBlackJackBoundary() {
+        System.out.println("BlackJackBoundary");
         Player player = new Player();
         Dealer dealer = new Dealer();
         AsianBlackJack game = new AsianBlackJack(player, dealer);
@@ -68,6 +71,7 @@ public class AsianBlackJackTest {
     //test method luckyFive() good
     @Test
     public void testLuckyFiveGood() {
+        System.out.println("LuckyFiveGood");
         Player player = new Player();
         Dealer dealer = new Dealer();
         AsianBlackJack game = new AsianBlackJack(player, dealer);
@@ -86,6 +90,7 @@ public class AsianBlackJackTest {
     //test method luckyFive() good
     @Test
     public void testLuckyFiveBoundary() {
+        System.out.println("LuckyFiveBoundary");
         Player player = new Player();
         Dealer dealer = new Dealer();
         AsianBlackJack game = new AsianBlackJack(player, dealer);
@@ -104,6 +109,7 @@ public class AsianBlackJackTest {
     //test method luckyFive() boundary
     @Test
     public void testLuckyFiveBad() {
+        System.out.println("LuckyFiveBad");
         Player player = new Player();
         Dealer dealer = new Dealer();
         AsianBlackJack game = new AsianBlackJack(player, dealer);
@@ -122,6 +128,7 @@ public class AsianBlackJackTest {
     //test method reset()
     @Test
     public void testReset() {
+        System.out.println("ResetGood");
         String input = "n";
         InputStream stream = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         Player player = new Player();
@@ -137,6 +144,7 @@ public class AsianBlackJackTest {
     //test method deal()
     @Test
     public void testDeal() {
+        System.out.println("DealGood");
         Player player = new Player();
         Dealer dealer = new Dealer();
         player.setHand(new Hand());
@@ -152,6 +160,7 @@ public class AsianBlackJackTest {
     // test method declareWinner()
     @Test
     public void testDeclareWinner() {
+        System.out.println("DeclareWinnerGood");
         Player player = new Player();
         Dealer dealer = new Dealer();
         AsianBlackJack game = new AsianBlackJack(player, dealer);
