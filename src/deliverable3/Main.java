@@ -22,14 +22,14 @@ public class Main {
 
         //create new game
         AsianBlackJack game = new AsianBlackJack(player, dealer);
-        game.intro();
-        game.setMoneyAmount();
+        game.intro(System.in);
+        game.setMoneyAmount(System.in);
         while (player.getAmount() > 0) {
-            game.bet();
+            game.bet(System.in);
             game.deal();
-            game.hit();
+            game.hit(System.in);
             game.declareWinner(player.getBet());
-            game.reset();
+            game.reset(System.in);
         }
 
     }

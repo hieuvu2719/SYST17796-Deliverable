@@ -5,6 +5,7 @@
  */
 package deliverable3;
 
+import java.io.InputStream;
 import java.util.Scanner;
 
 /**
@@ -30,7 +31,7 @@ public class AsianBlackJack {
     }
 
     //show introduction to the game
-    public void intro() {
+    public void intro(InputStream in) {
         System.out.println("Welcome to Asian BlackJack!!!\n");
         System.out.println("Even if you are busted, your still have a chance!!!");
         System.out.println("Your hand will be shown only after dealer finish their turn!!!");
@@ -84,7 +85,7 @@ public class AsianBlackJack {
     }
 
     //set player money amount
-    public void setMoneyAmount() {
+    public void setMoneyAmount(InputStream in) {
         Scanner sc;
         while (true) {
             sc = new Scanner(System.in);
@@ -104,7 +105,7 @@ public class AsianBlackJack {
     }
 
     //set bet money
-    public void bet() {
+    public void bet(InputStream in) {
         Scanner sc;
         double bet = 0;
         //keep prompting to get proper user's bet amount
@@ -145,7 +146,8 @@ public class AsianBlackJack {
         Hand dealerHand = new Hand();
         player.setHand(playerHand);
         dealer.setHand(dealerHand);
-
+        
+        //dealer deal cards
         dealer.deal(player, deck);
 
         //print dealer's one card on hand
@@ -163,7 +165,7 @@ public class AsianBlackJack {
     }
 
     //hit or stay
-    public void hit() {
+    public void hit(InputStream in) {
         Scanner sc;
         int select = 0;
         //keep prompting user to hit or stay
@@ -209,20 +211,28 @@ public class AsianBlackJack {
     }
 
     //reset game
-    public void reset() {
+    public void reset(InputStream in) {
         if (player.getAmount() > 0) {
             Scanner sc;
-            System.out.println("Would you like to play again? Yes (y) or No (n)");
-            sc = new Scanner(System.in);
-            if (sc.nextLine().equalsIgnoreCase("n")) {
-                System.out.println("Goodbye!");
-                player.setAmount(0);
-            } else {
-                System.out.println("\nNew round!!!");
-            }
+            String answer ="";
+            while(true){
+                System.out.println("Would you like to play again? Yes (y) or No (n)");
+                sc = new Scanner(System.in);
+                answer = sc.nextLine();
+                if (answer.equalsIgnoreCase("n")) {
+                    System.out.println("Goodbye!");
+                    player.setAmount(0);
+                    break;
+                }if (answer.equalsIgnoreCase("y")){
+                    System.out.println("\nNew round!!!");
+                    break;
+                }
+                else{
+                    System.out.println("Invalid Input!!! Try again!!!");
+                }
+            }    
         } else {
             System.out.println("You have no money!!! Goodbye!");
-
         }
     }
 
@@ -278,7 +288,8 @@ public class AsianBlackJack {
                 System.out.println("Current money amount: " + player.getAmount() + "\n");
             }
             if (luckyFive(player) == false && luckyFive(dealer) == false) {
-                if (dealer.calculate() == player.calculate() || (dealer.calculate() > 21 && player.calculate() > 21) || (dealer.calculate() > 21 && player.calculate() < 15)) {
+                if (dealer.calculate() == player.calculate() || (dealer.calculate() > 21 
+                    && player.calculate() > 21) || (dealer.calculate() > 21 && player.calculate() < 15)) {
                     System.out.println("It's a draw!!!");
                     System.out.println("Current money amount: " + player.getAmount() + "\n");
                 }

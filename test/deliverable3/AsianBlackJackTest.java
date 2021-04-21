@@ -5,7 +5,9 @@
  */
 package deliverable3;
 
-import java.util.Scanner;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
@@ -19,7 +21,19 @@ public class AsianBlackJackTest {
     public AsianBlackJackTest() {
     }
     
-    
+    @Test
+    public void testReset(){
+        String input = "n";
+        InputStream stream = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
+        Player player = new Player();
+        Dealer dealer = new Dealer();
+        AsianBlackJack game = new AsianBlackJack(player, dealer);
+        game.reset(stream);
+        double expResult = 0;
+        double result = player.getAmount();
+        assertEquals(expResult, result, 0.001);
+        
+    }
   
     
     //test method deal()
@@ -27,21 +41,12 @@ public class AsianBlackJackTest {
     public void testDeal(){
         Player player = new Player();
         Dealer dealer = new Dealer();
-        Player player2 = new Player();
-        Dealer dealer2 = new Dealer();
         player.setHand(new Hand());
         dealer.setHand(new Hand());
-        player2.setHand(new Hand());
-        dealer2.setHand(new Hand());
-        AsianBlackJack game = new AsianBlackJack(player2, dealer2);
-        Deck deck = new Deck();
-        deck.create();
-        dealer.setDeck(deck);
-        dealer.shuffle();
-        dealer.deal(player, deck);
+        AsianBlackJack game = new AsianBlackJack(player, dealer);
         game.deal();
         int expResult = 2;
-        int result = player2.getHand().size();
+        int result = player.getHand().size();
         assertEquals(expResult, result);
         
         
