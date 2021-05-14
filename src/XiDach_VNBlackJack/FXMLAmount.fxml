@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="XiDach_VNBlackJack.FXMLAmountController">
+    <stylesheets>
+        <URL value="@fxmlgame.css"/>
+    </stylesheets>
+    <children>
+        <VBox alignment="TOP_CENTER"> 
+        <Label alignment="BOTTOM_RIGHT" fx:id= "header" text ="Welcome to Xi Dach!!!" />
+        </VBox>
+        <VBox alignment="CENTER" >
+            <Button fx:id="start" text="START"/>
+            <Button fx:id="rules" text="RULES"/>
+        </VBox>
+        <Label fx:id = "rulesContent" />
+    </children>
+</VBox>

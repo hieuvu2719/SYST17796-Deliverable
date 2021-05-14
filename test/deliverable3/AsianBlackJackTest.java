@@ -5,6 +5,13 @@
  */
 package deliverable3;
 
+import XiDach_VNBlackJack.Value;
+import XiDach_VNBlackJack.Player;
+import XiDach_VNBlackJack.Dealer;
+import XiDach_VNBlackJack.VNBlackJack;
+import XiDach_VNBlackJack.Suit;
+import XiDach_VNBlackJack.Card;
+import XiDach_VNBlackJack.Hand;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -26,7 +33,7 @@ public class AsianBlackJackTest {
         System.out.println("BlackJackGood");
         Player player = new Player();
         Dealer dealer = new Dealer();
-        AsianBlackJack game = new AsianBlackJack(player, dealer);
+        VNBlackJack game = new VNBlackJack(player, dealer);
         Hand hand = new Hand();
         player.setHand(hand);
         player.getHand().getHand().add(new Card(Value.ACE, Suit.HEARTS));
@@ -42,7 +49,7 @@ public class AsianBlackJackTest {
         System.out.println("BlackJackBad");
         Player player = new Player();
         Dealer dealer = new Dealer();
-        AsianBlackJack game = new AsianBlackJack(player, dealer);
+        VNBlackJack game = new VNBlackJack(player, dealer);
         Hand hand = new Hand();
         player.setHand(hand);
         player.getHand().getHand().add(new Card(Value.ACE, Suit.HEARTS));
@@ -58,7 +65,7 @@ public class AsianBlackJackTest {
         System.out.println("BlackJackBoundary");
         Player player = new Player();
         Dealer dealer = new Dealer();
-        AsianBlackJack game = new AsianBlackJack(player, dealer);
+        VNBlackJack game = new VNBlackJack(player, dealer);
         Hand hand = new Hand();
         player.setHand(hand);
         player.getHand().getHand().add(new Card(Value.ACE, Suit.HEARTS));
@@ -74,7 +81,7 @@ public class AsianBlackJackTest {
         System.out.println("LuckyFiveGood");
         Player player = new Player();
         Dealer dealer = new Dealer();
-        AsianBlackJack game = new AsianBlackJack(player, dealer);
+        VNBlackJack game = new VNBlackJack(player, dealer);
         Hand hand = new Hand();
         player.setHand(hand);
         player.getHand().getHand().add(new Card(Value.TWO, Suit.HEARTS));
@@ -93,7 +100,7 @@ public class AsianBlackJackTest {
         System.out.println("LuckyFiveBoundary");
         Player player = new Player();
         Dealer dealer = new Dealer();
-        AsianBlackJack game = new AsianBlackJack(player, dealer);
+        VNBlackJack game = new VNBlackJack(player, dealer);
         Hand hand = new Hand();
         player.setHand(hand);
         player.getHand().getHand().add(new Card(Value.TEN, Suit.HEARTS));
@@ -112,7 +119,7 @@ public class AsianBlackJackTest {
         System.out.println("LuckyFiveBad");
         Player player = new Player();
         Dealer dealer = new Dealer();
-        AsianBlackJack game = new AsianBlackJack(player, dealer);
+        VNBlackJack game = new VNBlackJack(player, dealer);
         Hand hand = new Hand();
         player.setHand(hand);
         player.getHand().getHand().add(new Card(Value.JACK, Suit.HEARTS));
@@ -133,7 +140,7 @@ public class AsianBlackJackTest {
         InputStream stream = new ByteArrayInputStream(input.getBytes(StandardCharsets.UTF_8));
         Player player = new Player();
         Dealer dealer = new Dealer();
-        AsianBlackJack game = new AsianBlackJack(player, dealer);
+        VNBlackJack game = new VNBlackJack(player, dealer);
         game.reset(stream);
         double expResult = 0;
         double result = player.getAmount();
@@ -149,7 +156,7 @@ public class AsianBlackJackTest {
         Dealer dealer = new Dealer();
         player.setHand(new Hand());
         dealer.setHand(new Hand());
-        AsianBlackJack game = new AsianBlackJack(player, dealer);
+        VNBlackJack game = new VNBlackJack(player, dealer);
         game.deal();
         int expResult = 2;
         int result = player.getHand().size();
@@ -163,7 +170,7 @@ public class AsianBlackJackTest {
         System.out.println("DeclareWinnerGood");
         Player player = new Player();
         Dealer dealer = new Dealer();
-        AsianBlackJack game = new AsianBlackJack(player, dealer);
+        VNBlackJack game = new VNBlackJack(player, dealer);
         player.setBet(50);
         player.setAmount(1000);
         player.setHand(new Hand());
